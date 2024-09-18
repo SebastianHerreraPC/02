@@ -18,15 +18,18 @@ function renderAdded() {
   }
 }
 function addSong() {
+  let artist = document.querySelector(".input__text_type_artist");
+  let song = document.querySelector(".input__text_type_song");
   songsContainer.insertAdjacentHTML(
     "beforeend",
-    `
-        <div class="song">
-          <h4 class="song__artist">The Cars</h4>
-          <p class="song__title">Drive</p>
-          <button class="song__like"></button>
-        </div>`
+    ` <div class="song">
+        <h4 class="song__artist">${artist.value}</h4>
+        <p class="song__title">${song.value}</p>
+        <button class="song__like"></button>
+      </div>`
   );
+  song.value = "";
+  artist.value = "";
   renderAdded();
 }
 addButton.addEventListener("click", addSong);
