@@ -28,8 +28,8 @@ function addSong() {
         <button class="song__like"></button>
       </div>`
   );
-  song.value = " ";
-  artist.value = " ";
+  song.value = "";
+  artist.value = "";
   renderAdded();
 }
 addButton.addEventListener("click", addSong);
