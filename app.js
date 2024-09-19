@@ -1,11 +1,9 @@
 const container = document.querySelector(".container");
 const songsContainer = container.querySelector(".songs-container");
-const songs = songsContainer.querySelectorAll(".song");
 const addButton = container.querySelector(".form__submit-btn_action_add");
 const resetButton = container.querySelector(".form__submit-btn_action_reset");
 
 function renderAdded() {
-  const songs = songsContainer.querySelectorAll(".song");
   const noSongsElement = container.querySelector(".no-songs");
   if (songs.length === 0) {
     resetButton.setAttribute("disabled", true);
@@ -17,23 +15,37 @@ function renderAdded() {
     noSongsElement.classList.add("no-songs_hidden");
   }
 }
-function addSong() {
-  let artist = document.querySelector(".input__text_type_artist");
-  let song = document.querySelector(".input__text_type_song");
-  songsContainer.insertAdjacentHTML(
-    "beforeend",
-    ` <div class="song">
-        <h4 class="song__artist">${artist.value}</h4>
-        <p class="song__title">${song.value}</p>
-        <button class="song__like"></button>
-      </div>`
-  );
-  song.value = "";
-  artist.value = "";
-  renderAdded();
+function addSong(artistValue, titleValue) {
+  const trackContainer = document.createElement("div");
+  trackContainer.classList.add("song");
+
+  const artistElement = document.createElement("h4");
+  artistElement.classList.add("song__artist");
+  artistElement.textContent = artistValue;
+
+  const titleElement = document.createElement("p");
+  titleElement.classList.add("song__title");
+  titleElement.textContent = titleValue;
+
+  const likeButtonElement = document.createElement("button");
+  likeButtonElement.classList.add("song__like");
+
+  trackContainer.append(artistElement, titleElement, likeButtonElement);
+
+  songsContainer.append(trackContainer);
 }
-addButton.addEventListener("click", addSong);
 
-renderAdded();
+addButton.addEventListener("click", function () {
+  const artist = document.querySelector(".input__text_type_song");
+  const title = document.querySelector(".input__text_type_artist");
+  addSong(artist.value, title.value);
+  title.value = "";
+  artist.value = "";
 
-console.log(typeof document.querySelector(".input__text_type_artist").value);
+  resetButton.addEventListener("click", function () {
+    const songs = document.querySelectorAll(".song");
+    songs.forEach((item) => {
+      item.remove();
+    });
+  });
+});
