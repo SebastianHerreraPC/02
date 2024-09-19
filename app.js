@@ -5,7 +5,7 @@ const resetButton = container.querySelector(".form__submit-btn_action_reset");
 
 function renderAdded() {
   const noSongsElement = container.querySelector(".no-songs");
-  if (songs.length === 0) {
+  if (song.length === 0) {
     resetButton.setAttribute("disabled", true);
     resetButton.classList.add("form__submit-btn_disabled");
     noSongsElement.classList.remove("no-songs_hidden");
@@ -46,6 +46,8 @@ addButton.addEventListener("click", function () {
     const songs = document.querySelectorAll(".song");
     songs.forEach((item) => {
       item.remove();
+
+      renderAdded();
     });
   });
 });
